@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_project/features/Home/bloc/home_bloc.dart';
+import 'package:flutter_bloc_project/features/Home/ui/product_tile.dart';
 import 'package:flutter_bloc_project/features/Wishlist/ui/wishlist.dart';
 import 'package:flutter_bloc_project/features/cart/ui/cart.dart';
 
@@ -33,10 +34,18 @@ class _HomeState extends State<Home> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Cart()));
         }
-        if (state is HomeNigateToWishListPageActionState) {
+      else if (state is HomeNigateToWishListPageActionState) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Wishlist()));
         }
+
+      else if(state is HomeProductItemCartedActionState){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("item carted")));
+      }
+       else if(state is HomeProductItemWishlistedActionState){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("item Wishlist Added")));
+      }
+
       },
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -45,6 +54,8 @@ class _HomeState extends State<Home> {
               body: Center(child: CircularProgressIndicator()),
             );
           case HomeLoadedSuccessState:
+
+          final successSate=state as HomeLoadedSuccessState;
             return Scaffold(
               appBar: AppBar(
                 centerTitle: true,
@@ -74,10 +85,13 @@ class _HomeState extends State<Home> {
                 // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 backgroundColor: Colors.blue.shade400,
               ),
-              body: Center(
-                child: Text("Welcome To Bloc "),
-              ),
-            );
+              body: ListView.builder(
+                itemCount: successSate.products.length,
+                itemBuilder: (context,index){
+                return ProductTile(productsModels: successSate.products[index],homeBloc: homeBloc,);
+              },),
+              );
+            
           case HomeErrorState:
             return Scaffold(
               body: Center(
