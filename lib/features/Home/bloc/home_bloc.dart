@@ -22,29 +22,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeCartButtonNavigationEvent>(homeCartButtonNavigationEvent);
   }
 
-  // FutureOr<void> homeIntialEvent(
-  //     HomeIntialEvent event, Emitter<HomeState> emit) async {
-  //   emit(HomeLoadingState());
-  //   await Future.delayed(Duration(seconds: 3));
-  //   emit(
-  //     HomeLoadedSuccessState(
-  //       products: GroceryData.groceryData
-  //           .map(
-  //             (e) => DataProductsModels(
-  //                 id: e['id'],
-  //                 name: e['name'],
-  //                 description: e['description'],
-  //                 price: e['price'],
-  //                 imageUrl: e['imageUrl']),
-  //           )
-  //           .toList(),
-  //     ),
-  //   );
-
-  //   print(GroceryData.groceryData);
-  //   emit(HomeErrorState());
-  // }
-
   FutureOr<void> homeIntialEvent(
       HomeIntialEvent event, Emitter<HomeState> emit) async {
     // Emit loading state before starting any async operations
@@ -85,12 +62,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeProductWishListButtonClickEvent event, Emitter<HomeState> emit) {
     print("WishList Product is Clicked");
     wishlistItems.add(event.clickProduct);
+    // emit(HomeProductItemWishlistedActionState());
     emit(HomeProductItemWishlistedActionState());
   }
 
   FutureOr<void> homeProductCartButtonClickEvent(
       HomeProductCartButtonClickEvent event, Emitter<HomeState> emit) {
-      cartItems.add(event.clickProduct);
+    cartItems.add(event.clickProduct);
     print("Cart Product is Clicked");
     emit(HomeProductItemCartedActionState());
   }
