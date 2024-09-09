@@ -21,6 +21,6 @@ class HomeNigateToWishListPageActionState extends HomeActionState {}
 
 class HomeNigateToCartPageActionState extends HomeActionState {}
 
-class HomeProductItemWishlistedActionState extends HomeActionState{}
+class HomeProductItemWishlistedActionState extends HomeActionState {}
 
-class HomeProductItemCartedActionState extends HomeActionState{}
+class HomeProductItemCartedActionState extends HomeActionState {}
