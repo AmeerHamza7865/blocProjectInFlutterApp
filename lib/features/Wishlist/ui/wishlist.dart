@@ -5,7 +5,7 @@ import 'package:flutter_bloc_project/features/Wishlist/ui/wishlist_tile.dart';
 
 class Wishlist extends StatefulWidget {
   const Wishlist({super.key});
-
+  
   @override
   State<Wishlist> createState() => _WishlistState();
 }
@@ -26,7 +26,14 @@ class _WishlistState extends State<Wishlist> {
         title: Text("Wishlist Items"),
       ),
       body: BlocConsumer<WishlistBloc, WishlistState>(
-        listener: (context, state) {},
+        bloc: wishlistBloc,
+        listener: (context, state) {
+           if (state is WishListedMessage) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("item is removed from Wishlist")));
+          }
+
+        },
         listenWhen: (previous, current) => current is WishlistActionState,
         buildWhen: (previous, current) => current is! WishlistActionState,
         builder: (context, state) {

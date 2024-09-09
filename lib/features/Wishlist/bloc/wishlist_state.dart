@@ -12,3 +12,5 @@ class WishListSuccessState extends WishlistState {
 
   WishListSuccessState({required this.wishlistitems});
 }
+
+final class WishListedMessage extends WishlistActionState{} 
